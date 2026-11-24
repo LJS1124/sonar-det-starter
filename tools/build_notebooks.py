@@ -77,16 +77,20 @@ print("P50/P90/P99/P99.9 =", pct, " 最大值 =", img.max())'''),
     md("> 问题：中位数是最大值的百分之几？如果只做线性缩放，一半的像素会落在 0–255 的哪一段？"),
     md("## 4. 原图、增强图、扇形图对比"),
     code('''from sonar.preprocess import sonar_preprocess
-from sonar.geometry import polar_to_fan
+from matplotlib.patches import Polygon
+from sonar.geometry import polar_to_fan, box_to_fan_polygon
 from sonar.viz import draw_boxes
-a = next(x for x in anns if x.boxes)
+FOV = 120   # 水平开角，以你的数据（XML 方位参数或设备手册）为准
+a = max(anns, key=lambda x: len(x.boxes))
 raw = read_gray(a.image_path)
 enh = sonar_preprocess(raw, "log_clahe")
-fan = polar_to_fan(enh, fov_deg=120)   # 开角以你的数据为准
-fig, ax = plt.subplots(1, 3, figsize=(14, 4.5))
-ax[0].imshow(draw_boxes(a, classes=classes)); ax[0].set_title("原图（线性缩放）")
-ax[1].imshow(draw_boxes(a, img=enh, classes=classes)); ax[1].set_title("对数 + CLAHE")
-ax[2].imshow(fan, cmap="gray"); ax[2].set_title("展开成扇形（声呐在底部中央）")
+fan = polar_to_fan(enh, fov_deg=FOV)
+fig, ax = plt.subplots(1, 3, figsize=(15, 4.8), gridspec_kw={"width_ratios": [0.8, 0.8, 1.45]})
+ax[0].imshow(draw_boxes(a, classes=classes), aspect="auto"); ax[0].set_title("原图（线性缩放）")
+ax[1].imshow(draw_boxes(a, img=enh, classes=classes), aspect="auto"); ax[1].set_title("对数 + CLAHE")
+ax[2].imshow(fan, cmap="gray"); ax[2].set_title(f"展开成扇形（开角 {FOV}°，声呐在底部中央）")
+for b in a.boxes:   # 极坐标里的矩形框，到扇形图上变成扇环形
+    ax[2].add_patch(Polygon(box_to_fan_polygon(b.x1, b.y1, b.x2, b.y2, raw.shape, FOV), fill=False, ec="orange", lw=1.2))
 for x in ax: x.axis("off")
 plt.tight_layout(); plt.show()'''),
     md("> 问题：原图里你能看见几个目标？增强图里呢？扇形图里远处的目标为什么变宽了？"),
