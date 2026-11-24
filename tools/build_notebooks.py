@@ -14,9 +14,9 @@ sys.path.insert(0, str(REPO))
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from sonar.plotting import setup_cjk_font
 plt.rcParams["figure.dpi"] = 110
-plt.rcParams["font.sans-serif"] = ["Noto Sans CJK SC", "SimHei", "PingFang SC", "Microsoft YaHei", "DejaVu Sans"]
-plt.rcParams["axes.unicode_minus"] = False
+setup_cjk_font()   # 服务器上没有中文字体时会提示安装方法
 
 # 下载了真实数据就改成 data/raw/UATD_Training；没下载就先用合成数据（python scripts/make_synthetic.py）
 DATA_ROOT = REPO / "data" / "raw" / "UATD_Training"
