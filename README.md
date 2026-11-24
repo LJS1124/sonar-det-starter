@@ -27,6 +27,12 @@ python scripts/convert_to_yolo.py --train-root data/raw/UATD_Training \
 python scripts/train_baseline.py --data data/yolo_raw/data.yaml --name baseline_optical
 ```
 
+## 只有 CPU 怎么办
+
+- **CPU 上能完成的**：第 1–2 天数据分析、第 3 天转换与划分、第 5–8 天生成预处理和增强数据、第 9–10 天的误差拆解（有预测结果之后）、第 11–12 天的 ONNX CPU 测速。
+- **CPU 上只做冒烟测试的**：训练。用 `--device cpu --model yolo11n.pt --imgsz 320 --fraction 0.2 --epochs 5` 确认流程能跑通，分数不要当真。
+- **正式训练放到免费 GPU 上**：Kaggle Notebooks（每周约 30 GPU 小时，UATD 在 Kaggle 上有镜像，不用自己上传）；或 ModelScope 魔搭 Notebook（新用户有一次性 GPU 额度，国内访问方便）。在 notebook 里 `git clone` 本仓库，按教程的命令执行即可。
+
 ## 目录
 
 | 路径 | 对应教程 | 内容 |
