@@ -1,5 +1,6 @@
-# 下限按「支持 NumPy 2」的版本设置，避免旧版 pandas / scipy / matplotlib 遇到 NumPy 2 时
-# 报 "numpy.dtype size changed, may indicate binary incompatibility"
+# 第 1–2、5–10 天用到的基础依赖，装得快，CPU 环境就够用。
+# 下限按「支持 NumPy 2」的版本设置，避免旧版 pandas / scipy / matplotlib 报
+# "numpy.dtype size changed, may indicate binary incompatibility"
 numpy>=1.24
 pandas>=2.2.2
 scipy>=1.13
@@ -7,8 +8,4 @@ matplotlib>=3.8.4
 opencv-python>=4.10
 pyyaml>=6.0
 pytest>=7.0
-jupyter
-# 训练、导出（第 3 天起需要；会自动安装 PyTorch，GPU 版 PyTorch 建议先按官网单独安装）
-ultralytics>=8.3
-onnx
-onnxruntime
+ipykernel

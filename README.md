@@ -12,10 +12,12 @@
 ## 快速开始
 
 ```bash
-# 建议单独建一个虚拟环境，不要装进已有的大环境里，避免 NumPy 版本冲突
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+# 建议单独建一个虚拟环境，避免和已有环境的 NumPy 版本冲突。
+# --system-site-packages 让它能复用系统里已装好的 PyTorch，新装的包优先生效
+python -m venv --system-site-packages .venv && source .venv/bin/activate
+pip install -U -r requirements.txt            # 国内可加 -i https://mirrors.aliyun.com/pypi/simple/
 python -m ipykernel install --user --name sonar-det --display-name "sonar-det"   # notebook 里选这个内核
+pip install -r requirements-train.txt         # 第 3 天训练前再装
 
 # 1. 没有真实数据也能先跑通：生成合成数据 + 跑测试
 python scripts/make_synthetic.py

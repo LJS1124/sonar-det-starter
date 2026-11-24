@@ -1,0 +1,5 @@
+# 第 3 天起训练、导出需要。ultralytics 会依赖 PyTorch：
+# 环境里已有 PyTorch 时不会重新下载；没有的话建议先按 PyTorch 官网单独安装（GPU / CPU 版）。
+ultralytics>=8.3
+onnx
+onnxruntime
