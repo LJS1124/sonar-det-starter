@@ -1,0 +1,10 @@
+data/
+runs/
+reports/
+*.pt
+*.onnx
+*.engine
+*.rknn
+__pycache__/
+.ipynb_checkpoints/
+.pytest_cache/
