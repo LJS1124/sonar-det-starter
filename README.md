@@ -12,7 +12,10 @@
 ## 快速开始
 
 ```bash
+# 建议单独建一个虚拟环境，不要装进已有的大环境里，避免 NumPy 版本冲突
+python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
+python -m ipykernel install --user --name sonar-det --display-name "sonar-det"   # notebook 里选这个内核
 
 # 1. 没有真实数据也能先跑通：生成合成数据 + 跑测试
 python scripts/make_synthetic.py
